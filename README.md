@@ -15,7 +15,7 @@ For the purpose of developing a search interface, ~180K patent titles have been 
 The app lets the user compare search results from 2 search types:
 1) BM25 - which is a bag-of-words retrieval method that depends on exact matching of terms
 
-2)Semantic similarity search which searches the vector space of the documents for close matches. In this case, the search is able to retrieve synonyms and similar meanings. Currently, a lean model of sbert (~130 MB) is used for the purpose of encoding documents and approximate nearest neighbour is applied for retrieving search results.
+2) Semantic similarity search which searches the vector space of the documents for close matches. In this case, the search is able to retrieve synonyms and similar meanings. Currently, a lean model of sbert (~130 MB) is used for the purpose of encoding documents and approximate nearest neighbour is applied for retrieving search results.
 
 
 
