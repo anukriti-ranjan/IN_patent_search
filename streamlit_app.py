@@ -41,7 +41,7 @@ with st.form('my_form'):
     option = st.selectbox(
                     'Choose the search type',
                     ('Semantic Similarity Search', 'BM25'))
-    if option=="Semantic Search":
+    if option=='Semantic Similarity Search':
         # Every form must have a submit button
         submitted = st.form_submit_button('Submit')
         t0 = time.time()
@@ -64,8 +64,10 @@ with st.form('my_form'):
         #results = pd.DataFrame(data={'Application Number': df.iloc[similar_item_ids]['Application Number'].values, 
         #                                 'Title': df.iloc[similar_item_ids]['Title'].values,
         #                                 'App Date': df.iloc[similar_item_ids]['Application Date'].values}) 
-        results = "Currently not implemented in the search interface owing to resource constraints"
         
+        results = pd.DataFrame(data={'Application Number': ["Currently not implemented in the search interface owing to resource constraints"], 
+                                         'Title': ['XXXXX'],
+                                         'App Date': ['XX-XX-XXXX'])         
         t1 = time.time()
         time_taken=np.round(t1-t0,2)
 if submitted:
