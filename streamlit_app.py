@@ -40,7 +40,7 @@ with st.form('my_form'):
     query = st.text_input('Enter you query',"type your query here")
     option = st.selectbox(
                     'Choose the search type',
-                    ('Semantic Search', 'BM25'))
+                    ('Semantic Similarity Search', 'BM25'))
     if option=="Semantic Search":
         # Every form must have a submit button
         submitted = st.form_submit_button('Submit')
@@ -68,7 +68,7 @@ with st.form('my_form'):
         t1 = time.time()
         time_taken=np.round(t1-t0,2)
 if submitted:
-    st.write("Related title with application number and application date")
+    st.write("Related titles with application number and application date")
     st.write(f"Retrieved in {time_taken} seconds")
     styler = results.style.hide_index()
     st.write(styler.to_html(escape=False), unsafe_allow_html=True)
