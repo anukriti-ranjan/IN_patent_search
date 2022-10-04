@@ -60,7 +60,7 @@ with st.form('my_form'):
         clean_query = clean_text(query)
         tokenized_query = clean_query.split(" ")
         doc_scores = bm25.get_scores(tokenized_query)
-        similar_item_ids = doc_scores.argsort()[-20:][::-1]
+        similar_item_ids = doc_scores.argsort()[-50:][::-1]
         results = pd.DataFrame(data={'Application Number': df.iloc[similar_item_ids]['Application Number'].values, 
                                          'Title': df.iloc[similar_item_ids]['Title'].values,
                                          'App Date': df.iloc[similar_item_ids]['Application Date'].values}) 
