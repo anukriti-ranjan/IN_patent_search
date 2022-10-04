@@ -1,6 +1,6 @@
 [This is a work in progress]
 
-App url: https://anukriti-ranjan-in-patent-search-streamlit-app-nletpr.streamlitapp.com/
+App url: https://anukriti-ranjan-in-patent-search-streamlit-app-drhhdz.streamlitapp.com/
 
 ### Searching titles of patents filed by Indians in India
 
