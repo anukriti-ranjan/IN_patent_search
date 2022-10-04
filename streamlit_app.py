@@ -5,7 +5,7 @@ import random
 import unicodedata
 import re
 from pathlib import Path
-from rank_bm25 import BM25Okapi
+#from rank_bm25 import BM25Okapi
 import streamlit as st
 import numpy as np
 import time
@@ -28,10 +28,10 @@ def clean_text(s):
 df_patents=pd.read_csv('df_pt_titles.csv')
 df=df_patents.drop_duplicates().dropna(subset=['Title'])
 
-df['clean_title']=df['Title'].apply(clean_text)
-corpus = df['clean_title'].values.tolist()
-tokenized_corpus = [doc.split(" ") for doc in corpus]
-bm25 = BM25Okapi(tokenized_corpus)
+#df['clean_title']=df['Title'].apply(clean_text)
+#corpus = df['clean_title'].values.tolist()
+#tokenized_corpus = [doc.split(" ") for doc in corpus]
+#bm25 = BM25Okapi(tokenized_corpus)
 
 st.header('Search Patents filed by Indians in India by title')
 #st.subheader("semantic search with sbert")
@@ -57,13 +57,14 @@ with st.form('my_form'):
     else:
         submitted = st.form_submit_button('Submit')
         t0 = time.time()
-        clean_query = clean_text(query)
-        tokenized_query = clean_query.split(" ")
-        doc_scores = bm25.get_scores(tokenized_query)
-        similar_item_ids = doc_scores.argsort()[-50:][::-1]
-        results = pd.DataFrame(data={'Application Number': df.iloc[similar_item_ids]['Application Number'].values, 
+        #clean_query = clean_text(query)
+        #tokenized_query = clean_query.split(" ")
+        #doc_scores = bm25.get_scores(tokenized_query)
+        #similar_item_ids = doc_scores.argsort()[-50:][::-1]
+        #results = pd.DataFrame(data={'Application Number': df.iloc[similar_item_ids]['Application Number'].values, 
                                          'Title': df.iloc[similar_item_ids]['Title'].values,
                                          'App Date': df.iloc[similar_item_ids]['Application Date'].values}) 
+        results = "Currently not implemented in the search interface owing to resource constraints"
         
         t1 = time.time()
         time_taken=np.round(t1-t0,2)
