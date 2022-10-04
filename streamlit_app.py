@@ -5,7 +5,10 @@ import random
 import unicodedata
 import re
 from pathlib import Path
+from rank_bm25 import BM25Okapi
 import streamlit as st
+import numpy as np
+import time
 
 BASE_DIR=Path(__file__).resolve(strict=True).parent
 
@@ -25,22 +28,48 @@ def clean_text(s):
 df_patents=pd.read_csv('df_pt_titles.csv')
 df=df_patents.drop_duplicates().dropna(subset=['Title'])
 
+df['clean_title']=df['Title'].apply(clean_text)
+corpus = df['clean_title'].values.tolist()
+tokenized_corpus = [doc.split(" ") for doc in corpus]
+bm25 = BM25Okapi(tokenized_corpus)
+
 st.header('Search Patents filed by Indians in India by title')
 #st.subheader("semantic search with sbert")
 with st.form('my_form'):
     #st.subheader('**Enter you query**')
     query = st.text_input('Enter you query',"type your query here")
-    # Every form must have a submit button
-    submitted = st.form_submit_button('Submit')
+    option = st.selectbox(
+                    'Choose the search type',
+                    ('Semantic Search', 'BM25'))
+    if option=="Semantic Search":
+        # Every form must have a submit button
+        submitted = st.form_submit_button('Submit')
+        t0 = time.time()
 
-    query_embed = model.encode(clean_text(query))
-    similar_item_ids = search_index.get_nns_by_vector(query_embed,50,
-                                                include_distances=True)
-    results = pd.DataFrame(data={'Application Number': df.iloc[similar_item_ids[0]]['Application Number'].values, 
-                                     'Title': df.iloc[similar_item_ids[0]]['Title'].values,
-                                     'App Date': df.iloc[similar_item_ids[0]]['Application Date'].values}) 
+        query_embed = model.encode(clean_text(query))
+        similar_item_ids = search_index.get_nns_by_vector(query_embed,50,
+                                                    include_distances=True)
+        results = pd.DataFrame(data={'Application Number': df.iloc[similar_item_ids[0]]['Application Number'].values, 
+                                         'Title': df.iloc[similar_item_ids[0]]['Title'].values,
+                                         'App Date': df.iloc[similar_item_ids[0]]['Application Date'].values}) 
+        t1 = time.time()
+        time_taken=np.round(t1-t0,2)
+    else:
+        submitted = st.form_submit_button('Submit')
+        t0 = time.time()
+        clean_query = clean_text(query)
+        tokenized_query = clean_query.split(" ")
+        doc_scores = bm25.get_scores(tokenized_query)
+        similar_item_ids = doc_scores.argsort()[-20:][::-1]
+        results = pd.DataFrame(data={'Application Number': df.iloc[similar_item_ids]['Application Number'].values, 
+                                         'Title': df.iloc[similar_item_ids]['Title'].values,
+                                         'App Date': df.iloc[similar_item_ids]['Application Date'].values}) 
+        
+        t1 = time.time()
+        time_taken=np.round(t1-t0,2)
 if submitted:
     st.write("Related title with application number and application date")
+    st.write(f"Retrieved in {time_taken} seconds")
     styler = results.style.hide_index()
     st.write(styler.to_html(escape=False), unsafe_allow_html=True)
 else:
