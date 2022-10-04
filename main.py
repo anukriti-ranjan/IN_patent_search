@@ -32,7 +32,7 @@ df=df_patents.drop_duplicates().dropna(subset=['Title'])
 
 
 @app.route('/', methods=['GET', 'POST'])
-def hello_world():
+def patent_search():
     if request.method == 'POST':
         query = request.form.get("query")
         query_embed = model.encode(clean_text(query))
