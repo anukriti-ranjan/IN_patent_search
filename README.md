@@ -10,10 +10,10 @@ The current patent search interface provided by Indian Patent Advanced Search Sy
 
 ### Methodology
 
-For the purpose of developing a search interface, ~180K patent titles have been scraped from [Indian Patent Advanced Search System](https://ipindiaservices.gov.in/publicsearch/) across ~7200 pages. (This model will be perfected on both abstracts and titles in the coming days).
+For the purpose of developing a search interface, ~180K patent titles have been scraped from [Indian Patent Advanced Search System](https://ipindiaservices.gov.in/publicsearch/) across ~7200 pages (dynamically loaded) using python selenium. (This model will be perfected on both abstracts and titles in the coming days).
 
 The app lets the user compare search results from 2 search types:
-1) BM25 - which is a bag-of-words retrieval method that depends on exact matching of terms (currently not implemented in the URL)
+1) BM25 - which is a bag-of-words retrieval method that depends on exact matching of terms (currently not implemented in the URL owing to resource constraint)
 
 2) Semantic similarity search which searches the vector space of the documents for close matches. In this case, the search is able to retrieve synonyms and similar meanings. Currently, a lean model of sbert (~130 MB) is used for the purpose of encoding documents and approximate nearest neighbour is applied for retrieving search results.
 
