@@ -67,7 +67,7 @@ with st.form('my_form'):
         
         results = pd.DataFrame(data={'Application Number': ["Currently not implemented in the search interface owing to resource constraints"], 
                                          'Title': ['XXXXX'],
-                                         'App Date': ['XX-XX-XXXX'])         
+                                         'App Date': ['XX-XX-XXXX']})         
         t1 = time.time()
         time_taken=np.round(t1-t0,2)
 if submitted:
