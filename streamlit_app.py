@@ -23,7 +23,7 @@ load_ann()
 #search_index.load(f"{BASE_DIR}/IN_patents3.ann")
 
 #@st.cache(hash_funcs={"MyUnhashableClass": lambda _: None})
-@st.cache
+@st.cache(allow_output_mutation=True)
 def load_model():
 	  return SentenceTransformer(f"{BASE_DIR}/sent_bert_model")
 
