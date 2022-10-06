@@ -18,6 +18,7 @@ search_index = AnnoyIndex(384, 'angular')
 def load_ann():
       
       search_index.load(f"{BASE_DIR}/IN_patents3.ann")
+      return search_index
       
 
 
