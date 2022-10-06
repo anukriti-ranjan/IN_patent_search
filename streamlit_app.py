@@ -61,7 +61,7 @@ with st.form('my_form'):
         t0 = time.time()
 
         query_embed = model.encode(clean_text(query))
-	st.write(query_embed)
+	
         similar_item_ids = search_index.get_nns_by_vector(query_embed,50,
                                                     include_distances=True)
         results = pd.DataFrame(data={'Application Number': df.iloc[similar_item_ids[0]]['Application Number'].values, 
@@ -86,6 +86,7 @@ with st.form('my_form'):
         t1 = time.time()
         time_taken=np.round(t1-t0,2)
 if submitted:
+    st.write(query_embed)
     st.write("Related titles with application number and application date")
     st.write(f"Retrieved in {time_taken} seconds")
     styler = results.style.hide_index()
