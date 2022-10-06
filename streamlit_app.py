@@ -87,7 +87,7 @@ with st.form('my_form'):
         t1 = time.time()
         time_taken=np.round(t1-t0,2)
 if submitted:
-    st.write(query_embed)
+    #st.write(query_embed)
     st.write("Related titles with application number and application date")
     st.write(f"Retrieved in {time_taken} seconds")
     styler = results.style.hide_index()
