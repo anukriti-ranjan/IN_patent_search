@@ -19,6 +19,7 @@ def load_ann():
       return search_index.load(f"{BASE_DIR}/IN_patents3.ann")
 
 
+load_ann()
 
 @st.cache
 def load_model(hash_funcs={"MyUnhashableClass": lambda _: None}):
