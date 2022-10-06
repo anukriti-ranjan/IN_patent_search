@@ -19,10 +19,11 @@ def load_ann():
       return search_index.load(f"{BASE_DIR}/IN_patents3.ann")
 
 
-#load_ann()
-search_index.load(f"{BASE_DIR}/IN_patents3.ann")
+load_ann()
+#search_index.load(f"{BASE_DIR}/IN_patents3.ann")
 
-@st.cache(hash_funcs={"MyUnhashableClass": lambda _: None})
+#@st.cache(hash_funcs={"MyUnhashableClass": lambda _: None})
+@st.cache
 def load_model():
 	  return SentenceTransformer(f"{BASE_DIR}/sent_bert_model")
 
