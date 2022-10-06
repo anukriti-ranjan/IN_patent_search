@@ -20,7 +20,7 @@ def load_ann():
 search_index=load_ann()
 
 @st.cache
-def load_model():
+def load_model(hash_funcs={"MyUnhashableClass": lambda _: None}):
 	  return SentenceTransformer(f"{BASE_DIR}/sent_bert_model")
 
 model = load_model()
