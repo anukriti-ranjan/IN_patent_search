@@ -12,9 +12,19 @@ import time
 
 BASE_DIR=Path(__file__).resolve(strict=True).parent
 
-search_index = AnnoyIndex(384, 'angular')
-search_index.load(f"{BASE_DIR}/IN_patents3.ann")
-model= SentenceTransformer(f"{BASE_DIR}/sent_bert_model")
+@st.cache
+def load_ann():
+      search_index = AnnoyIndex(384, 'angular')
+      return search_index.load(f"{BASE_DIR}/IN_patents3.ann")
+
+search_index=load_ann()
+
+@st.cache
+def load_model():
+	  return SentenceTransformer(f"{BASE_DIR}/sent_bert_model")
+
+model = load_model()
+
 
 def clean_text(s):
     # Turn a Unicode string to plain ASCII
