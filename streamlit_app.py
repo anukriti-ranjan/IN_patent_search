@@ -12,12 +12,13 @@ import time
 
 BASE_DIR=Path(__file__).resolve(strict=True).parent
 
+search_index = AnnoyIndex(384, 'angular')
+
 @st.cache
 def load_ann():
-      search_index = AnnoyIndex(384, 'angular')
       return search_index.load(f"{BASE_DIR}/IN_patents3.ann")
 
-search_index=load_ann()
+
 
 @st.cache
 def load_model(hash_funcs={"MyUnhashableClass": lambda _: None}):
