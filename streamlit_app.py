@@ -9,6 +9,13 @@ from pathlib import Path
 import streamlit as st
 import numpy as np
 import time
+#import boto3
+
+
+#s3 = boto3.resource('s3')
+#obj = s3.Object('patent-ann-file','IN_patents3.ann')
+#data=obj.get()['Body'].read()
+
 
 BASE_DIR=Path(__file__).resolve(strict=True).parent
 
@@ -23,7 +30,9 @@ search_index = AnnoyIndex(384, 'angular')
 
 
 #load_ann()
-search_index.load(f"{BASE_DIR}/IN_patents3.ann")
+ann_file_path="https://patent-ann-file.s3.amazonaws.com/IN_patents3.ann"
+#search_index.load(f"{BASE_DIR}/IN_patents3.ann")
+search_index.load(ann_file_path)
 
 #@st.cache(hash_funcs={"MyUnhashableClass": lambda _: None})
 @st.cache(allow_output_mutation=True)
