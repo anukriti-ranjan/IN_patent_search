@@ -9,6 +9,7 @@ from pathlib import Path
 import streamlit as st
 import numpy as np
 import time
+import wget
 #import boto3
 
 
@@ -30,9 +31,10 @@ search_index = AnnoyIndex(384, 'angular')
 
 
 #load_ann()
-ann_file_path="https://patent-ann-file.s3.amazonaws.com/IN_patents3.ann"
+ann_url="https://patent-ann-file.s3.amazonaws.com/IN_patents3.ann"
 #search_index.load(f"{BASE_DIR}/IN_patents3.ann")
-search_index.load(ann_file_path)
+#search_index.load(ann_file_path)
+response = wget.download(ann_url, "search_index")
 
 #@st.cache(hash_funcs={"MyUnhashableClass": lambda _: None})
 @st.cache(allow_output_mutation=True)
