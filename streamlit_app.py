@@ -31,11 +31,20 @@ search_index = AnnoyIndex(384, 'angular')
 
 
 #load_ann()
-ann_url="https://patent-ann-file.s3.amazonaws.com/IN_patents3.ann"
+
 #search_index.load(f"{BASE_DIR}/IN_patents3.ann")
 #search_index.load(ann_file_path)
-response = wget.download(ann_url, "IN_patents3.ann")
-search_index.load(response)
+#ann_url="https://patent-ann-file.s3.amazonaws.com/IN_patents3.ann"
+#response = wget.download(ann_url, "IN_patents3.ann")
+#search_index.load(response)
+
+@st.cache(allow_output_mutation=True)
+def load_ann():
+      ann_url="https://patent-ann-file.s3.amazonaws.com/IN_patents3.ann"
+      response = wget.download(ann_url, "IN_patents3.ann")
+      return response
+
+search_index.load(load_ann())
 
 #@st.cache(hash_funcs={"MyUnhashableClass": lambda _: None})
 @st.cache(allow_output_mutation=True)
