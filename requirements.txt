@@ -4,4 +4,4 @@ sentence-transformers
 pandas
 rank_bm25
 numpy
-boto3
+wget
